@@ -49,3 +49,14 @@ exports.getProfile = async (req, res, next) => {
   }
 }
 
+exports.activationEmail = async (req, res, next) => {
+  try {
+    let { activationLink } = req.params;
+    let { isActivated, id } = await userService.activationEmail(activationLink)
+    if (isActivated) {
+      res.redirect("/")
+    }
+  } catch (err) {
+    next(err);
+  }
+}
